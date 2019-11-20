@@ -1,3 +1,5 @@
+![Egg Status][eggs]
+
 # byteman-rules
 
 Rules for [Byteman][byteman] for applications to make it easier to debug/log stuff.
@@ -36,3 +38,4 @@ To attach multiple rules to an app:
 [byteman]: https://byteman.jboss.org/
 [xaresource]: https://javaee.github.io/javaee-spec/javadocs/javax/transaction/xa/XAResource.html
 [transaction]: https://javaee.github.io/javaee-spec/javadocs/javax/transaction/Transaction.html
+[eggs]: https://img.shields.io/badge/eggs-runny-pink.svg
