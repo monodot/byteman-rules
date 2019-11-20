@@ -14,12 +14,12 @@ RULE Synchronization.beforeCompletion: invoked prior to starting two-phase commi
 INTERFACE javax.transaction.Synchronization
 METHOD beforeCompletion()
 IF TRUE
-DO traceln("***** JTA Synchronization(" + $0 + ")#beforeCompletion")
+DO traceln("***** JTA Synchronization#beforeCompletion     (" + $0 + ")")
 ENDRULE
 
 RULE Synchronization.afterCompletion: invoked after transaction is completed
 INTERFACE javax.transaction.Synchronization
 METHOD afterCompletion(int)
 IF TRUE
-DO traceln("***** JTA Synchronization(" + $0 + ")#afterCompletion, result=" + $1)
+DO traceln("***** JTA Synchronization#afterCompletion      (" + $0 + ",result=" + $1 + ")")
 ENDRULE

@@ -16,47 +16,47 @@ INTERFACE javax.transaction.Transaction
 METHOD <init>
 AT ENTRY
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#init")
+DO traceln("***** JTA Transaction#init                     (" + $0 + ")")
 ENDRULE
 
 RULE Transaction.commit: Complete the transaction represented by this Transaction object.
 INTERFACE javax.transaction.Transaction
 METHOD commit()
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#commit")
+DO traceln("***** JTA Transaction#commit                   (" + $0 + ")")
 ENDRULE
 
 RULE Transaction.rollback: Rollback the transaction represented by this Transaction object.
 INTERFACE javax.transaction.Transaction
 METHOD rollback()
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#rollback")
+DO traceln("***** JTA Transaction#rollback                 (" + $0 + ")")
 ENDRULE
 
 RULE Transaction.setRollbackOnly: Modify the transaction associated with the target object such that the only possible outcome of the transaction is to roll back the transaction.
 INTERFACE javax.transaction.Transaction
 METHOD setRollbackOnly()
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#setRollbackOnly")
+DO traceln("***** JTA Transaction#setRollbackOnly          (" + $0 + ")")
 ENDRULE
 
 RULE Transaction.enlistResource: Enlist the resource specified with the transaction associated with the target Transaction object.
 INTERFACE javax.transaction.Transaction
 METHOD enlistResource(XAResource)
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#enlistResource,xaRes=" + $1)
+DO traceln("***** JTA Transaction#enlistResource           (" + $0 + ",xaRes=" + $1 + ")")
 ENDRULE
 
 RULE Transaction.delistResource: Disassociate the resource specified from the transaction associated with the target Transaction object.
 INTERFACE javax.transaction.Transaction
 METHOD delistResource(XAResource,int)
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#delistResource,xaRes=" + $1 + ",flag=" + $2)
+DO traceln("***** JTA Transaction#delistResource           (" + $0 + ",xaRes=" + $1 + ",flag=" + $2 + ")")
 ENDRULE
 
 RULE Transaction.registerSynchronization: Register a synchronization object for the transaction currently associated with the target object.
 INTERFACE javax.transaction.Transaction
 METHOD registerSynchronization(Synchronization)
 IF TRUE
-DO traceln("***** JTA-XA XAResource(" + $0 + ")#registerSynchronization,sync=" + $1)
+DO traceln("***** JTA Transaction#registerSynchronization  (" + $0 + ",sync=" + $1 + ")")
 ENDRULE
