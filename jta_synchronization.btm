@@ -1,0 +1,25 @@
+# Trace calls to the Java Transaction API (JTA) to monitor a transaction
+
+## javax.transaction.Synchronization
+## https://docs.oracle.com/javaee/7/api/javax/transaction/Synchronization.html
+##
+## The transaction manager supports a synchronization mechanism
+## that allows the interested party to be notified before and
+## after the transaction completes.
+## Using the registerSynchronization method, the application server
+## registers a Synchronization object for the transaction currently
+## associated with the target Transaction object.
+
+RULE Synchronization.beforeCompletion: invoked prior to starting two-phase commit
+INTERFACE javax.transaction.Synchronization
+METHOD beforeCompletion()
+IF TRUE
+DO traceln("***** JTA Synchronization(" + $0 + ")#beforeCompletion")
+ENDRULE
+
+RULE Synchronization.afterCompletion: invoked after transaction is completed
+INTERFACE javax.transaction.Synchronization
+METHOD afterCompletion(int)
+IF TRUE
+DO traceln("***** JTA Synchronization(" + $0 + ")#afterCompletion, result=" + $1)
+ENDRULE

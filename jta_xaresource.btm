@@ -1,0 +1,92 @@
+# Set of Byteman rules to trace what happens to an XAResource during an XA transaction
+
+## javax.transaction.xa.XAResource
+## https://docs.oracle.com/javaee/7/api/javax/transaction/xa/XAResource.html
+## https://javaee.github.io/javaee-spec/javadocs/javax/transaction/xa/XAResource.html
+##
+## The XA interface defines the contract between a Resource Manager and
+## From the Javadocs:
+## a Transaction Manager in a distributed transaction processing (DTP) environment.
+## A JDBC driver or a JMS provider implements this interface to support the
+## association between a global transaction and a database or
+## message service connection.
+
+RULE XAResource.init: constructor
+INTERFACE javax.transaction.xa.XAResource
+METHOD <init>
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#<init>")
+ENDRULE
+
+RULE XAResource.start: starts work on behalf of a transaction branch specified in xid.
+INTERFACE javax.transaction.xa.XAResource
+METHOD start(Xid, int)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#start,Xid=" + $1 + ",flags=" + $2)
+ENDRULE
+
+RULE XAResource.commit: Commits the global transaction specified by xid.
+INTERFACE javax.transaction.xa.XAResource
+METHOD commit(Xid, boolean)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#commit,Xid=" + $1 + ",onePhase=" + $2)
+ENDRULE
+
+RULE XAResource.end: Ends the work performed on behalf of a transaction branch.
+INTERFACE javax.transaction.xa.XAResource
+METHOD end(Xid, int)
+AT ENTRY
+IF TRUE
+DO traceln("XA-BTM ***** XAResource(" + $0 + ")#end")
+ENDRULE
+
+RULE XAResource.prepare: Ask the resource manager to prepare for a transaction commit of the transaction specified in xid.
+INTERFACE javax.transaction.xa.XAResource
+METHOD prepare(Xid)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#prepare,Xid=" + $1)
+ENDRULE
+
+RULE XAResource.recover: Obtains a list of prepared transaction branches from a resource manager.
+INTERFACE javax.transaction.xa.XAResource
+METHOD recover(int)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#recover,flag=" + $1)
+ENDRULE
+
+RULE XAResource.rollback: Informs the resource manager to roll back work done on behalf of a transaction branch.
+INTERFACE javax.transaction.xa.XAResource
+METHOD rollback(Xid)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#rollback,Xid=" + $1)
+ENDRULE
+
+RULE XAResource.forget: Tells the resource manager to forget about a heuristically completed transaction branch.
+INTERFACE javax.transaction.xa.XAResource
+METHOD forget(Xid)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#forget,Xid=" + $1)
+ENDRULE
+
+RULE XAResource.isSameRM: This method is called to determine if the resource manager instance represented by the target object is the same as the resouce manager instance represented by the parameter xares.
+INTERFACE javax.transaction.xa.XAResource
+METHOD isSameRM(XAResource)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#isSameRM,xares=" + $1)
+ENDRULE
+
+RULE XAResource.setTransactionTimeout: Sets the current transaction timeout value for this XAResource instance.
+INTERFACE javax.transaction.xa.XAResource
+METHOD setTransactionTimeout(int)
+AT ENTRY
+IF TRUE
+DO traceln("***** JTA-XA XAResource(" + $0 + ")#setTransactionTimeout,seconds=" + $1)
+ENDRULE
