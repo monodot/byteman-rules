@@ -16,7 +16,7 @@ INTERFACE javax.transaction.xa.XAResource
 METHOD <init>
 AT ENTRY
 IF TRUE
-DO traceln("***** JTA-XA XAResource#init                   (" + $0 + ")")
+DO traceln("***** JTA-XA XAResource#init                   (" + $CLASS + ")")
 ENDRULE
 
 RULE XAResource.start: starts work on behalf of a transaction branch specified in xid.
@@ -24,7 +24,7 @@ INTERFACE javax.transaction.xa.XAResource
 METHOD start(Xid, int)
 AT ENTRY
 IF TRUE
-DO traceln("***** JTA-XA XAResource#start                  (" + $0 + ";Xid=" + $1 + ",flags=" + $2 + ")")
+DO traceln("***** JTA-XA XAResource#start                  (" + $0 + ";Xid=" + $1.getGlobalTransactionId() + ",flags=" + $2 + ")")
 ENDRULE
 
 RULE XAResource.commit: Commits the global transaction specified by xid.
@@ -40,7 +40,7 @@ INTERFACE javax.transaction.xa.XAResource
 METHOD end(Xid, int)
 AT ENTRY
 IF TRUE
-DO traceln("***** JTA-XA XAResource#end                    (" + $0 + ";Xid=" + $1 + ",int=" + $2 + ")")
+DO traceln("***** JTA-XA XAResource#end                    (" + $0 + ";Xid=" + $1.getGlobalTransactionId() + ",int=" + $2 + ")")
 ENDRULE
 
 RULE XAResource.prepare: Ask the resource manager to prepare for a transaction commit of the transaction specified in xid.
