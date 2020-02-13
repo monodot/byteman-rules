@@ -1,0 +1,39 @@
+# Rules for instrumenting org.messaginghub:pooled-jms
+
+#### MESSAGINGHUB POOLED-JMS
+
+RULE JmsPoolConnectionFactory.createJmsPoolConnection
+CLASS org.messaginghub.pooled.jms.JmsPoolConnectionFactory
+METHOD createJmsPoolConnection(String, String)
+AT ENTRY
+IF TRUE
+DO traceln("***** POOLEDJMS - createJmsPoolConnection")
+ENDRULE
+
+#########
+
+RULE JmsPoolXAConnectionFactory.<init>
+CLASS org.messaginghub.pooled.jms.JmsPoolXAConnectionFactory
+METHOD <init>
+AT ENTRY
+IF TRUE
+DO traceln("POOLEDJMS-XA ***** JmsPoolXAConnectionFactory constructor")
+ENDRULE
+
+RULE JmsPoolXAConnectionFactory.createXAConnection
+CLASS org.messaginghub.pooled.jms.JmsPoolXAConnectionFactory
+METHOD createXAConnection(String, String)
+AT ENTRY
+IF TRUE
+DO traceln("POOLEDJMS-XA ***** createXAConnection")
+ENDRULE
+
+RULE JmsPoolXAConnectionFactory.createPooledConnection
+CLASS org.messaginghub.pooled.jms.JmsPoolXAConnectionFactory
+METHOD createPooledConnection(Connection)
+AT ENTRY
+IF TRUE
+DO traceln("POOLEDJMS-XA ***** createPooledConnection")
+ENDRULE
+
+############
