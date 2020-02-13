@@ -28,7 +28,9 @@ To attach multiple rules to an app:
     $ java -javaagent:/usr/share/byteman/lib/byteman.jar=script:some-rule.btm,script:another-rule.btm \
         -jar target/your-java-app-1.0-SNAPSHOT.jar
 
-## The rules
+## Them's the rules
+
+Here's the rules. Have lots of fun xx
 
 | Filename | What it contains |
 | --- | --- |
